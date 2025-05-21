@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  MyLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: co.com.fomag.lambda.content.adapter.in.lambda.ProxyLambdaHandlerRuntime::handleRequest
+      Runtime: provided.al2023
+      CodeUri: ./target/function.zip
+      MemorySize: 256
+      Timeout: 10
+      Environment:
+        Variables:
+          ENV_REGION: us-west-2
+          MICRONAUT_ENVIRONMENTS: lambda
+      Events:
+        VersionEndpoint:
+          Type: Api
+          Properties:
+            Path: /version
+            Method: GET
+        HealthEndpoint:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: GET
+        DocumentEndpoint:
+          Type: Api
+          Properties:
+            Path: /document
+            Method: GET
+        DefaultEndpoint:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY

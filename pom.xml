@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>co.com.fomag.lambda.system</groupId>
-	<artifactId>aws-arch-system-service</artifactId>
+	<groupId>co.com.fomag.lambda.content</groupId>
+	<artifactId>aws-arch-content-service</artifactId>
 	<version>1.0.0</version>
 	<packaging>${packaging}</packaging>
 
@@ -15,25 +15,34 @@
 
 	<properties>
 		<packaging>jar</packaging>
+
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 		<java.version>21</java.version>
 		<jdk.version>21</jdk.version>
 		<release.version>21</release.version>
+
 		<micronaut.aot.enabled>false</micronaut.aot.enabled>
-		<micronaut.aot.packageName>co.com.fomag.lambda.system.aot.generated</micronaut.aot.packageName>
+		<micronaut.aot.packageName>co.com.fomag.lambda.content.aot.generated</micronaut.aot.packageName>
 		<micronaut.runtime>lambda</micronaut.runtime>
-		<exec.mainClass>
-			co.com.fomag.lambda.system.adapter.in.lambda.ProxyLambdaHandlerRuntime</exec.mainClass>
+		<exec.mainClass>co.com.fomag.lambda.content.adapter.in.lambda.ProxyLambdaHandlerRuntime</exec.mainClass>
+
+		<!-- Micronaut versions -->
+		<micronaut.version>4.3.7</micronaut.version>
+		<micronaut.core.version>4.3.7</micronaut.core.version>
+		<micronaut.data.version>4.1.4</micronaut.data.version>
+
 		<jacoco.version>0.8.10</jacoco.version>
-		<sonar.pluing.version>3.9.1.2184</sonar.pluing.version>
+
+		<!-- Sonar plugin corrected -->
+		<sonar.plugin.version>3.9.1.2184</sonar.plugin.version>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.exclusions>
-		</sonar.exclusions>
+
+		<sonar.exclusions></sonar.exclusions>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.coverage.jacoco.xmlReportPaths>
-			${project.build.directory}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.jacoco.reportsPaths>${project.build.directory}/jacoco-ut.exec</sonar.jacoco.reportsPaths>
 		<sonar.sources>pom.xml,src/main/java</sonar.sources>
 		<sonar.tests>src/test/java</sonar.tests>
@@ -52,10 +61,10 @@
 			<groupId>io.micronaut.jms</groupId>
 			<artifactId>micronaut-jms-sqs</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>io.micronaut.aws</groupId>
 			<artifactId>micronaut-aws-parameter-store</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>io.micronaut.aws</groupId>
 			<artifactId>micronaut-function-aws-custom-runtime</artifactId>
@@ -106,9 +115,83 @@
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--Agrego dependencias-->
+		<dependency>
+			<groupId>io.micronaut.data</groupId>
+			<artifactId>micronaut-data-jdbc</artifactId>
+            <version>${micronaut.data.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-runtime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-core</artifactId>
+			<version>4.3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-jackson-databind</artifactId>
+			<version>${micronaut.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut.sql</groupId>
+			<artifactId>micronaut-jdbc-hikari</artifactId>
+			<version>4.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>ssm</artifactId>
+			<version>2.20.150</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>secretsmanager</artifactId>
+			<version>2.20.150</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-http-server-netty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-graal</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.micronaut</groupId>
+			<artifactId>micronaut-inject-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micronaut.data</groupId>
+			<artifactId>micronaut-data-processor</artifactId>
+			<version>${micronaut.data.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 	<build>
-		<finalName>aws-arch-system-service</finalName>
+		<finalName>aws-arch-content-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>io.micronaut.maven</groupId>
@@ -143,6 +226,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.30</version>
 						</path>
 						<path>
 							<groupId>io.micronaut</groupId>
@@ -153,17 +237,23 @@
 							<groupId>io.micronaut.serde</groupId>
 							<artifactId>micronaut-serde-processor</artifactId>
 							<version>${micronaut.serialization.version}</version>
-							<exclusions>
+							<!--<exclusions>
 								<exclusion>
 									<groupId>io.micronaut</groupId>
 									<artifactId>micronaut-inject</artifactId>
 								</exclusion>
-							</exclusions>
+							</exclusions>-->
 						</path>
-					</annotationProcessorPaths>
+                        <path>
+                            <groupId>io.micronaut.data</groupId>
+                            <artifactId>micronaut-data-processor</artifactId>
+                            <version>${micronaut.data.version}</version>
+                        </path>
+
+                    </annotationProcessorPaths>
 					<compilerArgs>
 						<arg>
-							-Amicronaut.processing.group=co.com.fomag.lambda.system</arg>
+							-Amicronaut.processing.group=co.com.fomag.lambda.content</arg>
 						<arg>-Amicronaut.processing.module=${project.artifactId}</arg>
 					</compilerArgs>
 				</configuration>
@@ -188,6 +278,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -198,5 +289,7 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
+
 	</build>
 </project>

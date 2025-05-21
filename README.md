@@ -1,4 +1,4 @@
-# system-service
+# content-service
 
 Proyecto Lambda generado con Micronaut.
 

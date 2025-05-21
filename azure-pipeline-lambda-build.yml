@@ -1,0 +1,18 @@
+variables:
+  - group: pipeline-vars
+
+trigger:
+  branches:
+    include:
+      - feature/devops-integration
+
+resources:
+  repositories:
+    - repository: periferiait-template-pipeline
+      type: git
+      name: DevSecOps/periferiait-template-pipeline
+      ref: refs/heads/devops_kevin/lambda
+      endpoint: fiduprevisaora
+
+stages:
+  - template: 'azure-pipeline-fiduprevisora-lambda.yml@periferiait-template-pipeline'
