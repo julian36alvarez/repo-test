@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.ReflectiveAccess;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Setter
 @Introspected
 @ReflectiveAccess
+@Serdeable
 public class ResponseDto {
 
 	private int httpCode;

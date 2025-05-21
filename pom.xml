@@ -135,11 +135,6 @@
 		</dependency>
 		<dependency>
 			<groupId>io.micronaut</groupId>
-			<artifactId>micronaut-core</artifactId>
-			<version>4.3.7</version>
-		</dependency>
-		<dependency>
-			<groupId>io.micronaut</groupId>
 			<artifactId>micronaut-jackson-databind</artifactId>
 			<version>${micronaut.version}</version>
 		</dependency>
@@ -151,12 +146,10 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-			<version>5.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>io.micronaut.sql</groupId>
 			<artifactId>micronaut-jdbc-hikari</artifactId>
-			<version>4.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
@@ -188,7 +181,10 @@
 			<version>${micronaut.data.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>aws-arch-content-service</finalName>
@@ -278,7 +274,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -289,7 +284,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-
 	</build>
+
 </project>

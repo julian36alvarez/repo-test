@@ -7,6 +7,10 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.function.aws.runtime.AbstractMicronautLambdaRuntime;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Runtime principal para ejecutar la función Lambda usando Micronaut.
+ * Este runtime es necesario cuando se requiere control manual del contexto.
+ */
 @Slf4j
 public class ProxyLambdaHandlerRuntime extends AbstractMicronautLambdaRuntime<
 		APIGatewayProxyRequestEvent,
@@ -15,16 +19,13 @@ public class ProxyLambdaHandlerRuntime extends AbstractMicronautLambdaRuntime<
 		APIGatewayProxyResponseEvent> {
 
 	public static void main(String[] args) throws Exception {
-		log.info("Start ProxyLambdaHandlerRuntime ...");
+		log.info("Starting ProxyLambdaHandlerRuntime...");
 		new ProxyLambdaHandlerRuntime().run(args);
 	}
 
 	@Override
 	protected RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> createRequestHandler(String... args) {
-		// Inicializa el contexto manualmente
-		var context = ApplicationContext.builder().build();
-		context.start();
+		ApplicationContext context = ApplicationContext.builder().build().start();
 		return context.getBean(ProxyLambdaHandler.class);
 	}
-
 }
